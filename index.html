@@ -8,10 +8,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
-    <audio id="bg-music" src="song.mp3" loop pre-load="auto"></audio>
+    <audio id="bg-music" src="song.mp3" loop preload="auto"></audio>
+
+    <div id="overlay" onclick="startExperience()">
+        <div class="overlay-content">
+            <h1>For Karen</h1>
+            <p>Click to open</p>
+        </div>
+    </div>
+
     <div id="canvas-container"></div>
 
-    <main class="content-wrapper">
+    <main class="content-wrapper" id="main-content">
         <header class="hero">
             <h1 class="brand">ROTHSCHILD</h1>
             <p class="subtitle">After forensic examination of the relationship circumstances.</p>
@@ -20,7 +28,7 @@
         <section class="gallery">
             <div class="media-grid">
                 <img src="1.jpeg" alt="Memory 1" class="float">
-                <video src="1.mp4" autoplay muted loop class="main-video"></video>
+                <video id="vid" src="1.mp4" muted loop class="main-video"></video>
                 <img src="2.jpeg" alt="Memory 2" class="float delay">
             </div>
         </section>
@@ -45,11 +53,27 @@
             <p class="compliment">You are far too smart to succumb to flattery, <strong>definitely as interesting as a swiss army knife!!</strong></p>
             <h2 class="question">Karen, would you be my chocolate fix on Valentine's?</h2>
             <div class="buttons">
-                <button class="yes-btn">Yes, Absolutely</button>
+                <button class="yes-btn" onclick="alert('The best outcome possible! ❤️')">Yes, Absolutely</button>
             </div>
         </section>
     </main>
 
     <script src="sketch.js"></script>
+    <script>
+        function startExperience() {
+            // Play music
+            const song = document.getElementById('bg-music');
+            song.play();
+
+            // Unmute and play video
+            const video = document.getElementById('vid');
+            video.muted = false;
+            video.play();
+
+            // Hide overlay and show content
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('main-content').style.opacity = '1';
+        }
+    </script>
 </body>
 </html>

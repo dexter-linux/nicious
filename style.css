@@ -9,22 +9,37 @@
 
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Prevent horizontal scroll globally */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
-    margin: 0;
-    padding: 0;
     background-color: var(--deep-purple);
     color: var(--white);
     font-family: 'Georgia', serif;
-    overflow-x: hidden;
     line-height: 1.6;
+}
+
+/* Make ALL media responsive */
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* --- OVERLAY --- */
 #overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: radial-gradient(circle, #2d0b3d 0%, #000000 100%);
     z-index: 2000;
     display: flex;
@@ -41,20 +56,22 @@ body {
     animation: pulse 2s infinite;
 }
 
-/* --- LAYOUT & WIDTH CONTROL --- */
+/* --- BACKGROUND CANVAS --- */
 #canvas-container {
     position: fixed;
-    top: 0; left: 0; z-index: -1;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
+/* --- MAIN WRAPPER --- */
 .content-wrapper {
     opacity: 0;
     transition: opacity 2s ease-in;
-    /* This makes the container wide but keeps it centered */
-    width: 95%; 
-    max-width: 1000px; 
+    width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 80px 10px;
+    padding: 80px 20px;
     text-align: center;
 }
 
@@ -69,7 +86,7 @@ body {
 /* --- MEDIA GRID --- */
 .media-grid {
     display: flex;
-    flex-wrap: wrap; /* Allows wrapping on small screens */
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 30px;
@@ -78,7 +95,7 @@ body {
 
 .main-video {
     width: 100%;
-    max-width: 400px; /* Bigger video on desktop */
+    max-width: 400px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 50%;
@@ -87,24 +104,25 @@ body {
 }
 
 .float {
-    width: 180px; /* Larger images */
-    max-width: 40%;
+    width: 100%;
+    max-width: 180px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     animation: floating 4s ease-in-out infinite;
 }
 
-/* --- POETRY & TEXT --- */
+/* --- POETRY --- */
 .poetry-block {
     margin: 80px auto;
-    max-width: 800px; /* Keeps text lines from getting too long/hard to read */
+    max-width: 800px;
+    padding: 0 15px;
 }
 
 .quote {
     font-size: clamp(1.1rem, 4vw, 1.5rem);
-    padding: 0 20px;
 }
 
+/* --- IMAGE ROW --- */
 .image-row {
     display: flex;
     flex-wrap: wrap;
@@ -114,10 +132,10 @@ body {
 }
 
 .image-row img {
-    flex: 1 1 300px; /* Grows to fill space but stays at least 300px */
-    max-width: 450px;
+    flex: 1 1 250px;
+    max-width: 100%;
     border-radius: 12px;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 
 .image-row img:hover {
@@ -127,7 +145,7 @@ body {
 /* --- FINAL SECTION --- */
 .final-ask {
     margin-top: 100px;
-    padding: 60px 30px;
+    padding: 60px 20px;
     background: rgba(255, 255, 255, 0.07);
     border-radius: 40px;
     backdrop-filter: blur(15px);
@@ -145,4 +163,52 @@ body {
     border: none;
     padding: 20px 80px;
     font-size: 1.5rem;
-    border-radius: 6
+    border-radius: 60px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(72, 12, 168, 0.5);
+    max-width: 100%;
+}
+
+.yes-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px var(--glow-purple);
+    background: var(--glow-purple);
+    color: var(--deep-purple);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* --- MOBILE OPTIMIZATION --- */
+@media (max-width: 600px) {
+    .content-wrapper {
+        padding: 40px 15px;
+    }
+
+    .media-grid {
+        gap: 15px;
+    }
+
+    .float {
+        max-width: 140px;
+    }
+
+    .yes-btn {
+        width: 100%;
+        padding: 15px 20px;
+    }
+
+    .image-row {
+        flex-direction: column;
+    }
+}
